@@ -113,6 +113,7 @@
     //暂停计时器
     [downTimer setFireDate:[NSDate distantFuture]];
     UIAlertController *alertView = [UIAlertController alertControllerWithTitle:@"暂停"  message:nil preferredStyle:UIAlertControllerStyleAlert];
+
     UIAlertAction *Action1 = [UIAlertAction actionWithTitle:@"继续" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         //继续计时
         [downTimer setFireDate:[NSDate distantPast]];
@@ -170,7 +171,7 @@
 - (void)startTwo {
     POPSpringAnimation *positionAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerPosition];
     positionAnimation.beginTime = 3.0f;
-    positionAnimation.toValue = [NSValue valueWithCGPoint:CGPointMake(self.view.frame.size.width/2, -100)];
+    positionAnimation.toValue = [NSValue valueWithCGPoint:CGPointMake(self.view.frame.size.width/2, -120)];
     [self.dragView.layer pop_addAnimation:positionAnimation forKey:@"layerPositionAnimation"];
     NSDictionary *dic = @{@"flag":@1};
     [[NSNotificationCenter defaultCenter]postNotificationName:@"createNum" object:nil userInfo:dic];
