@@ -20,6 +20,8 @@
     int moveNum;
     //记录完成关数
     int Lv;
+    //方块高宽
+    CGFloat HW;
 }
 //  记录路径的数组 用于画图
 @property (strong, nonatomic) NSMutableArray <UIBezierPath* > *pathArray;
@@ -83,7 +85,7 @@
 }
 
 - (void)createSubView {
-    CGFloat HW = (UI_SCREEN_W - 120)/4;
+    HW = (UI_SCREEN_W - 120)/4;
     
     for (int i = 0 ; i< 4 ; i++)
     {
@@ -169,8 +171,24 @@
 
 - (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
+    //判断所连接的数字是否是相邻的
+    BOOL flag = YES;
     // 获取移动中的终点
     _pointForEnd = [touches.anyObject locationInView:self];
+    if(_pointForEnd.y > self.frame.size.height || _pointForEnd.y < 0 || _pointForEnd.x > self.frame.size.width || _pointForEnd.x
+       < 0){
+        [self Initialization];
+        // 清除当前的路径  目的是 把多余的没有连接两个圈的线 去掉
+        self.tempPath = nil;
+        // 设置没有选中开始点 为下一次绘制做准备
+        _isSelectStartPoint = 0;
+        // 绘制渲染一下
+        [self setNeedsDisplay];
+    }
+    
+    if ( _pointForBegin.x - _pointForEnd.x < -(HW+HW/2+20)  ||  _pointForBegin.x - _pointForEnd.x > HW+HW/2+20 || _pointForBegin.y - _pointForEnd.y < -(HW+HW/2+20)  ||  _pointForBegin.y - _pointForEnd.y > HW+HW/2+20) {
+        flag = NO;
+    }
     
     // 看看有没有开始的圆圈被选中要是有的话才会有一系列的操作  否则不管
     if (_isSelectStartPoint)
@@ -185,7 +203,7 @@
         // 判断终点是否在  九个圆圈的范围中
         for (UIView *subView in self.subviews)
         {
-            if (CGRectContainsPoint(subView.frame, _pointForEnd) && subView.userInteractionEnabled)
+            if (CGRectContainsPoint(subView.frame, _pointForEnd) && subView.userInteractionEnabled && flag)
             {
                 // 改变颜色 并关闭 交互 表示选中了
                 subView.backgroundColor = [UIColor greenColor];
