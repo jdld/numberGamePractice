@@ -13,8 +13,8 @@
 #define UI_Drag_W [[UIScreen mainScreen] bounds].size.width/2
 
 @interface HomeViewController ()<POPAnimationDelegate>{
-    int timeCount; //总时长
     NSTimer *downTimer;
+    int timeCount; //总时长
     int level;
     int editLevel;
     int score;
@@ -101,6 +101,9 @@
 
 - (void)timeFireMethod {
     _timeLab.text = [NSString stringWithFormat:@"%ds",timeCount--];
+    if (timeCount < 3) {
+        _timeLab.textColor = [UIColor redColor];
+    }
     if (timeCount == -1) {
         EndViewController *End = [Utilities getStoryboardInstanceByIdentity:@"Main" byIdentity:@"End"];
         End.level = [NSString stringWithFormat:@"%d",editLevel];

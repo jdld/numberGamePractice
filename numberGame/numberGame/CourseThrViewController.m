@@ -7,8 +7,15 @@
 //
 
 #import "CourseThrViewController.h"
+#import "CourseImageView.h"
 
-@interface CourseThrViewController ()
+@interface CourseThrViewController (){
+    NSTimer *downTimer;
+    int timeCount; //总时长
+    BOOL flag;
+}
+
+@property(nonatomic) CourseImageView *imageView;
 
 @end
 
@@ -16,11 +23,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    flag = YES;
+    timeCount = 10;
     //隐藏push跳转后的返回按钮
     self.navigationItem.hidesBackButton = YES;
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(clickNumber:) name:@"clickWho" object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(heightLight) name:@"heightLight" object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(pushCtrl:) name:@"pushCtrl" object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(removeImageView) name:@"removeImageView" object:nil];
+    
+    _imageView = [[CourseImageView alloc]initWithFrame:@"非常好!现在需要计时。" Btn:@"下一步"];
+    [self.view addSubview:_imageView];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -28,6 +41,29 @@
     
     NSDictionary *dic = @{@"who":@3};
     [[NSNotificationCenter defaultCenter]postNotificationName:@"whoCtrl" object:nil userInfo:dic];
+}
+
+- (void)removeImageView {
+    if (flag) {
+        [_imageView removeFromSuperview];
+        downTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeFireMethod) userInfo:nil repeats:YES];
+        flag = NO;
+    }else {
+        [self.navigationController popToRootViewControllerAnimated:NO];
+    }
+    
+}
+
+- (void)timeFireMethod {
+    _timeLab.text = [NSString stringWithFormat:@"%ds",timeCount--];
+    if (timeCount < 3) {
+        _timeLab.textColor = [UIColor redColor];
+    }
+    if (timeCount == -1) {
+        [downTimer invalidate];
+        _imageView = [[CourseImageView alloc]initWithFrame:@"我想你已经明白了数学的真谛。" Btn:@"没错"];
+        [self.view addSubview:_imageView];
+    }
 }
 
 - (void)clickNumber:(NSNotification *)note {
@@ -45,7 +81,9 @@
 
 - (void)pushCtrl:(NSNotification *)note {
     if ([note.userInfo[@"lv"]intValue] == 3) {
-        [self.navigationController popToRootViewControllerAnimated:YES];
+        [downTimer invalidate];
+        _imageView = [[CourseImageView alloc]initWithFrame:@"我想你已经明白了数学的真谛。" Btn:@"没错"];
+        [self.view addSubview:_imageView];
     }
 }
 

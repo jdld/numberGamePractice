@@ -23,6 +23,7 @@
 		B80898911D421C5D00FC64F7 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B80898901D421C5D00FC64F7 /* HomeViewController.m */; };
 		B852A4191D484C7200F51EB8 /* CourseTwoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B852A4181D484C7200F51EB8 /* CourseTwoViewController.m */; };
 		B852A41C1D48537B00F51EB8 /* CourseThrViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B852A41B1D48537B00F51EB8 /* CourseThrViewController.m */; };
+		B852A4221D487D2800F51EB8 /* CourseImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = B852A4211D487D2800F51EB8 /* CourseImageView.m */; };
 		B8748DD41D4837E60081EEAB /* CourseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8748DD31D4837E60081EEAB /* CourseViewController.m */; };
 		B8748DD71D483A500081EEAB /* CourseView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8748DD61D483A500081EEAB /* CourseView.m */; };
 		B8BB27681D45B87100DC4DD8 /* EndViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8BB27671D45B87100DC4DD8 /* EndViewController.m */; };
@@ -83,6 +84,8 @@
 		B852A4181D484C7200F51EB8 /* CourseTwoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CourseTwoViewController.m; sourceTree = "<group>"; };
 		B852A41A1D48537B00F51EB8 /* CourseThrViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CourseThrViewController.h; sourceTree = "<group>"; };
 		B852A41B1D48537B00F51EB8 /* CourseThrViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CourseThrViewController.m; sourceTree = "<group>"; };
+		B852A4201D487D2800F51EB8 /* CourseImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CourseImageView.h; sourceTree = "<group>"; };
+		B852A4211D487D2800F51EB8 /* CourseImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CourseImageView.m; sourceTree = "<group>"; };
 		B8748DD21D4837E60081EEAB /* CourseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CourseViewController.h; sourceTree = "<group>"; };
 		B8748DD31D4837E60081EEAB /* CourseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CourseViewController.m; sourceTree = "<group>"; };
 		B8748DD51D483A500081EEAB /* CourseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CourseView.h; sourceTree = "<group>"; };
@@ -274,17 +277,35 @@
 			name = Setting;
 			sourceTree = "<group>";
 		};
+		B852A4231D4884D900F51EB8 /* CourseView */ = {
+			isa = PBXGroup;
+			children = (
+				B8748DD51D483A500081EEAB /* CourseView.h */,
+				B8748DD61D483A500081EEAB /* CourseView.m */,
+			);
+			name = CourseView;
+			sourceTree = "<group>";
+		};
+		B852A4241D48851900F51EB8 /* CourseImageView */ = {
+			isa = PBXGroup;
+			children = (
+				B852A4201D487D2800F51EB8 /* CourseImageView.h */,
+				B852A4211D487D2800F51EB8 /* CourseImageView.m */,
+			);
+			name = CourseImageView;
+			sourceTree = "<group>";
+		};
 		B8748DD11D4837900081EEAB /* Course */ = {
 			isa = PBXGroup;
 			children = (
+				B852A4241D48851900F51EB8 /* CourseImageView */,
+				B852A4231D4884D900F51EB8 /* CourseView */,
 				B8748DD21D4837E60081EEAB /* CourseViewController.h */,
 				B8748DD31D4837E60081EEAB /* CourseViewController.m */,
 				B852A4171D484C7200F51EB8 /* CourseTwoViewController.h */,
 				B852A4181D484C7200F51EB8 /* CourseTwoViewController.m */,
 				B852A41A1D48537B00F51EB8 /* CourseThrViewController.h */,
 				B852A41B1D48537B00F51EB8 /* CourseThrViewController.m */,
-				B8748DD51D483A500081EEAB /* CourseView.h */,
-				B8748DD61D483A500081EEAB /* CourseView.m */,
 			);
 			name = Course;
 			sourceTree = "<group>";
@@ -492,6 +513,7 @@
 				B80898911D421C5D00FC64F7 /* HomeViewController.m in Sources */,
 				B80898401D41F6AC00FC64F7 /* main.m in Sources */,
 				B852A41C1D48537B00F51EB8 /* CourseThrViewController.m in Sources */,
+				B852A4221D487D2800F51EB8 /* CourseImageView.m in Sources */,
 				B8748DD71D483A500081EEAB /* CourseView.m in Sources */,
 				B8748DD41D4837E60081EEAB /* CourseViewController.m in Sources */,
 				B80898781D41FE6E00FC64F7 /* RankingViewController.m in Sources */,

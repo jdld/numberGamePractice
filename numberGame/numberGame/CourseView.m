@@ -7,6 +7,7 @@
 //
 
 #import "CourseView.h"
+#import <POP.h>
 
 @interface CourseView() {
     // 开始是否选中了一个 圆圈  有的话 才能有下一步活动
@@ -51,7 +52,15 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(refresh:) name:@"whoCtrl" object:nil];
 }
 
-
+- (void)optionHand {
+    UIImageView *imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"hand"]];
+    imageView.frame = CGRectMake(HW + 20 ,HW + 20 ,HW,HW);
+    [self addSubview:imageView];
+    POPSpringAnimation *positionAnimation1 = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerPosition];
+    positionAnimation1.beginTime = 2.0f;
+    positionAnimation1.toValue = [NSValue valueWithCGRect:CGRectMake(2 * HW+ 40,2 * HW+ 40 ,HW,HW)];
+    [imageView.layer pop_addAnimation:positionAnimation1 forKey:@"layerPositionAnimation"];
+}
 
 - (void)refresh:(NSNotification *)note {
     if ([note.userInfo[@"who"]intValue] == 1) {

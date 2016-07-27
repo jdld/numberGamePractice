@@ -8,8 +8,11 @@
 
 #import "CourseTwoViewController.h"
 #import "CourseThrViewController.h"
+#import "CourseImageView.h"
 
 @interface CourseTwoViewController ()
+
+@property(nonatomic) CourseImageView *imageView;
 
 @end
 
@@ -23,6 +26,10 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(clickNumber:) name:@"clickWho" object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(heightLight) name:@"heightLight" object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(pushCtrl:) name:@"pushCtrl" object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(removeImageView) name:@"removeImageView" object:nil];
+    
+    _imageView = [[CourseImageView alloc]initWithFrame:@"真棒!看看这个吧。" Btn:@"出发"];
+    [self.view addSubview:_imageView];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -30,6 +37,10 @@
     
     NSDictionary *dic = @{@"who":@2};
     [[NSNotificationCenter defaultCenter]postNotificationName:@"whoCtrl" object:nil userInfo:dic];
+}
+
+- (void)removeImageView {
+    [_imageView removeFromSuperview];
 }
 
 - (void)clickNumber:(NSNotification *)note {

@@ -11,5 +11,6 @@
 @interface CourseThrViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UILabel *clickNumLab;
 @property (weak, nonatomic) IBOutlet UILabel *levelLab;
+@property (weak, nonatomic) IBOutlet UILabel *timeLab;
 
 @end
