@@ -12,6 +12,7 @@
 - (IBAction)onMusicAction:(UIButton *)sender forEvent:(UIEvent *)event;
 - (IBAction)backMusicAction:(UIButton *)sender forEvent:(UIEvent *)event;
 - (IBAction)loginGoogleAction:(UIButton *)sender forEvent:(UIEvent *)event;
+- (IBAction)CourseAction:(UIButton *)sender forEvent:(UIEvent *)event;
 
 @property (weak, nonatomic) IBOutlet UIButton *musicBut;
 @property (weak, nonatomic) IBOutlet UIButton *backMusicBut;

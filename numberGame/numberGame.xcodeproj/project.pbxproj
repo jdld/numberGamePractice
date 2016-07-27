@@ -21,6 +21,10 @@
 		B80898841D420E8D00FC64F7 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B80898831D420E8D00FC64F7 /* SettingViewController.m */; };
 		B808988E1D42162E00FC64F7 /* MainView.m in Sources */ = {isa = PBXBuildFile; fileRef = B808988D1D42162E00FC64F7 /* MainView.m */; };
 		B80898911D421C5D00FC64F7 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B80898901D421C5D00FC64F7 /* HomeViewController.m */; };
+		B852A4191D484C7200F51EB8 /* CourseTwoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B852A4181D484C7200F51EB8 /* CourseTwoViewController.m */; };
+		B852A41C1D48537B00F51EB8 /* CourseThrViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B852A41B1D48537B00F51EB8 /* CourseThrViewController.m */; };
+		B8748DD41D4837E60081EEAB /* CourseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8748DD31D4837E60081EEAB /* CourseViewController.m */; };
+		B8748DD71D483A500081EEAB /* CourseView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8748DD61D483A500081EEAB /* CourseView.m */; };
 		B8BB27681D45B87100DC4DD8 /* EndViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8BB27671D45B87100DC4DD8 /* EndViewController.m */; };
 		B8BB276B1D45C60A00DC4DD8 /* StorageMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = B8BB276A1D45C60A00DC4DD8 /* StorageMgr.m */; };
 		DE03310E65FB9E2539AA5A4C /* libPods-numberGame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 950EB718199B1F7DB49381A9 /* libPods-numberGame.a */; };
@@ -75,6 +79,14 @@
 		B808988D1D42162E00FC64F7 /* MainView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainView.m; sourceTree = "<group>"; };
 		B808988F1D421C5D00FC64F7 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		B80898901D421C5D00FC64F7 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
+		B852A4171D484C7200F51EB8 /* CourseTwoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CourseTwoViewController.h; sourceTree = "<group>"; };
+		B852A4181D484C7200F51EB8 /* CourseTwoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CourseTwoViewController.m; sourceTree = "<group>"; };
+		B852A41A1D48537B00F51EB8 /* CourseThrViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CourseThrViewController.h; sourceTree = "<group>"; };
+		B852A41B1D48537B00F51EB8 /* CourseThrViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CourseThrViewController.m; sourceTree = "<group>"; };
+		B8748DD21D4837E60081EEAB /* CourseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CourseViewController.h; sourceTree = "<group>"; };
+		B8748DD31D4837E60081EEAB /* CourseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CourseViewController.m; sourceTree = "<group>"; };
+		B8748DD51D483A500081EEAB /* CourseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CourseView.h; sourceTree = "<group>"; };
+		B8748DD61D483A500081EEAB /* CourseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CourseView.m; sourceTree = "<group>"; };
 		B8BB27661D45B87100DC4DD8 /* EndViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EndViewController.h; sourceTree = "<group>"; };
 		B8BB27671D45B87100DC4DD8 /* EndViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EndViewController.m; sourceTree = "<group>"; };
 		B8BB27691D45C60A00DC4DD8 /* StorageMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StorageMgr.h; sourceTree = "<group>"; };
@@ -211,6 +223,7 @@
 		B80898731D41F6C300FC64F7 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				B8748DD11D4837900081EEAB /* Course */,
 				B8BB27651D45B85D00DC4DD8 /* Home */,
 				B80898851D420E9000FC64F7 /* Setting */,
 				B80898811D420E4B00FC64F7 /* Ranking */,
@@ -259,6 +272,21 @@
 				B80898831D420E8D00FC64F7 /* SettingViewController.m */,
 			);
 			name = Setting;
+			sourceTree = "<group>";
+		};
+		B8748DD11D4837900081EEAB /* Course */ = {
+			isa = PBXGroup;
+			children = (
+				B8748DD21D4837E60081EEAB /* CourseViewController.h */,
+				B8748DD31D4837E60081EEAB /* CourseViewController.m */,
+				B852A4171D484C7200F51EB8 /* CourseTwoViewController.h */,
+				B852A4181D484C7200F51EB8 /* CourseTwoViewController.m */,
+				B852A41A1D48537B00F51EB8 /* CourseThrViewController.h */,
+				B852A41B1D48537B00F51EB8 /* CourseThrViewController.m */,
+				B8748DD51D483A500081EEAB /* CourseView.h */,
+				B8748DD61D483A500081EEAB /* CourseView.m */,
+			);
+			name = Course;
 			sourceTree = "<group>";
 		};
 		B8BB27651D45B85D00DC4DD8 /* Home */ = {
@@ -459,9 +487,13 @@
 				B8BB27681D45B87100DC4DD8 /* EndViewController.m in Sources */,
 				B80898431D41F6AC00FC64F7 /* AppDelegate.m in Sources */,
 				B80898841D420E8D00FC64F7 /* SettingViewController.m in Sources */,
+				B852A4191D484C7200F51EB8 /* CourseTwoViewController.m in Sources */,
 				B808988E1D42162E00FC64F7 /* MainView.m in Sources */,
 				B80898911D421C5D00FC64F7 /* HomeViewController.m in Sources */,
 				B80898401D41F6AC00FC64F7 /* main.m in Sources */,
+				B852A41C1D48537B00F51EB8 /* CourseThrViewController.m in Sources */,
+				B8748DD71D483A500081EEAB /* CourseView.m in Sources */,
+				B8748DD41D4837E60081EEAB /* CourseViewController.m in Sources */,
 				B80898781D41FE6E00FC64F7 /* RankingViewController.m in Sources */,
 				B808987C1D41FEC300FC64F7 /* Utilities.m in Sources */,
 			);

@@ -1,15 +1,14 @@
 //
-//  MainView.m
+//  CourseView.m
 //  numberGame
 //
-//  Created by Etong on 16/7/22.
+//  Created by Etong on 16/7/27.
 //  Copyright © 2016年 Etong. All rights reserved.
 //
 
-#import "MainView.h"
-#import "ViewController.h"
+#import "CourseView.h"
 
-@interface MainView () {
+@interface CourseView() {
     // 开始是否选中了一个 圆圈  有的话 才能有下一步活动
     BOOL _isSelectStartPoint;
     // 记录每次 起点坐标
@@ -22,17 +21,20 @@
     int Lv;
     //方块高宽
     CGFloat HW;
+    //判断是第几个控制器
+    int whoCtrl;
 }
+
 //  记录路径的数组 用于画图
 @property (strong, nonatomic) NSMutableArray <UIBezierPath* > *pathArray;
-//  定义一个临时路径变量  接受中间游走的路径 
+//  定义一个临时路径变量  接受中间游走的路径
 @property (strong, nonatomic) UIBezierPath *tempPath;
 
 @property (strong, nonatomic)NSMutableArray *objArr;
 
 @end
 
-@implementation MainView
+@implementation CourseView
 
 - (NSMutableArray<UIBezierPath *> *)pathArray
 {
@@ -43,48 +45,75 @@
     return _pathArray;
 }
 
-- (instancetype)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self)
-    {
-        // 调用构建视图的方法
-        [self createSubView];
-        
-    }
-    return self;
-}
 
 - (void)awakeFromNib
 {
-    Lv = 1;
-    // 调用构建视图方法
-    [self createSubView];
-    self.hidden = YES;
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(refresh) name:@"refresh" object:nil];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(hiddenView:) name:@"createNum" object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(refresh:) name:@"whoCtrl" object:nil];
 }
 
-- (void)hiddenView:(NSNotification *)flag {
-    if ([flag.userInfo[@"flag"]intValue] == 0) {
-        self.hidden = YES;
-    }else {
-        self.hidden = NO;
-    }
-    
-}
 
-- (void)refresh {
-    Lv = 1;
-    for (UIView *subView in self.subviews)
-    {
-        for (UILabel *label in subView.subviews) {
-            label.text = [NSString stringWithFormat:@"%d",[self getRandomNumber:-5 to:9]];
+
+- (void)refresh:(NSNotification *)note {
+    if ([note.userInfo[@"who"]intValue] == 1) {
+        [self createOneSubView];
+        Lv = 1;
+        NSArray *arr = @[@"2",@"3",@"5",@"-1"];
+        for (UIView *subView in self.subviews)
+        {
+            for (UILabel *label in subView.subviews) {
+                label.text = arr[label.tag - 2001];
+            }
+        }
+    }else if([note.userInfo[@"who"]intValue] == 2){
+        [self createOtherSubView];
+        Lv = 2;
+        NSArray *arr = @[@"1",@"5",@"4",@"1",@"-3",@"1",@"-5",@"8",@"6",@"3",@"-2",@"-2",@"-4",@"5",@"1",@"5"];
+        for (UIView *subView in self.subviews)
+        {
+            for (UILabel *label in subView.subviews) {
+                label.text = arr[label.tag - 2001];
+            }
+        }
+    }else{
+        [self createOtherSubView];
+        Lv = 3;
+        NSArray *arr = @[@"1",@"5",@"4",@"1",@"-3",@"2",@"-1",@"2",@"6",@"2",@"2",@"-3",@"-4",@"5",@"1",@"4"];
+        for (UIView *subView in self.subviews)
+        {
+            for (UILabel *label in subView.subviews) {
+                label.text = arr[label.tag - 2001];
+            }
         }
     }
 }
 
-- (void)createSubView {
+- (void)createOneSubView {
+    HW = (UI_SCREEN_W - 120)/4;
+    
+    for (int i = 0 ; i< 2 ; i++)
+    {
+        for (int j = 0 ; j < 2 ; j++)
+        {
+            // 算位置 并添加
+            UIView *tempView = [[UIView alloc] initWithFrame:CGRectMake(HW+ 20 + j*(HW+20),HW + 20 + i*(HW+20), HW, HW)];
+            UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, HW, HW)];
+            [tempView addSubview:lab];
+            [self addSubview:tempView];
+            
+            // 给 view 几个 tag 值加以区分 值是1000 + 1到9;
+            tempView.tag = 1001 + i*2 +j;
+            tempView.backgroundColor = [UIColor colorWithRed:6.f/255.f green:117.f/255.f blue:144.f/255.f alpha:1];
+            tempView.layer.cornerRadius = 5;
+            
+            lab.tag = 2001 + i*2 +j;
+            lab.font = [UIFont systemFontOfSize:24];
+            lab.textAlignment = NSTextAlignmentCenter;
+            lab.textColor = [UIColor whiteColor];
+        }
+    }
+}
+
+- (void)createOtherSubView {
     HW = (UI_SCREEN_W - 120)/4;
     
     for (int i = 0 ; i< 4 ; i++)
@@ -94,33 +123,20 @@
             // 算位置 并添加
             UIView *tempView = [[UIView alloc] initWithFrame:CGRectMake(j*(HW+20), i*(HW+20), HW, HW)];
             UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, HW, HW)];
-            lab.text = [NSString stringWithFormat:@"%d",[self getRandomNumber:-5 to:9]];
             [tempView addSubview:lab];
             [self addSubview:tempView];
             
             // 给 view 几个 tag 值加以区分 值是1000 + 1到9;
-            tempView.tag = 1001 + i*3 +j;
+            tempView.tag = 1001 + i*4 +j;
             tempView.backgroundColor = [UIColor colorWithRed:6.f/255.f green:117.f/255.f blue:144.f/255.f alpha:1];
             tempView.layer.cornerRadius = 5;
             
+            lab.tag = 2001 + i*4 +j;
             lab.font = [UIFont systemFontOfSize:24];
             lab.textAlignment = NSTextAlignmentCenter;
             lab.textColor = [UIColor whiteColor];
         }
     }
-}
-
-//获取一个随机数,范围在[from,to）
--(int)getRandomNumber:(int)from to:(int)to{
-    int num = (from + (arc4random() % (to - from + 1)));
-    
-    if (num == 0){
-       return [self getRandomNumber:from to:to];
-    }else if (num == [[[StorageMgr singletonStorageMgr]objectForKey:@"level"]intValue]) {
-       return [self getRandomNumber:from to:to];
-    }
-    return num;
-    
 }
 
 //初始化数据
@@ -220,8 +236,7 @@
                 // 把路径存放到数组中
                 [self.pathArray addObject:self.tempPath];
                 //计算正确的数值给予高亮
-                int level = [[[StorageMgr singletonStorageMgr]objectForKey:@"level"]intValue];
-                if (moveNum == level) {
+                if (moveNum == Lv) {
                     [[NSNotificationCenter defaultCenter]postNotificationName:@"heightLight" object:nil];
                 }
                 // 为找下一个圆圈位置做准备  要以这个选中圆圈位置中心开始点
@@ -241,21 +256,12 @@
     _isSelectStartPoint = 0;
     // 绘制渲染一下
     [self setNeedsDisplay];
-
-    int level = [[[StorageMgr singletonStorageMgr]objectForKey:@"level"]intValue];
-    if (moveNum == level) {
-        Lv++;
-        NSDictionary *dic = @{@"i":@(Lv)};
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"levelUp" object:nil userInfo:dic];
-        for (UIView *subView in self.subviews)
-        {
-            for (UILabel *label in subView.subviews) {
-                label.text = [NSString stringWithFormat:@"%d",[self getRandomNumber:-5 to:9]];
-            }
-        }
-        
+    
+    if (moveNum == Lv) {
+        NSDictionary *dic = @{@"lv":@(Lv)};
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"pushCtrl" object:nil userInfo:dic];
     }
-    NSDictionary *dic = @{@"number":@"标记为一"};
+    NSDictionary *dic = @{@"number":@(moveNum)};
     [[NSNotificationCenter defaultCenter]postNotificationName:@"clickWho" object:nil userInfo:dic];
     [self Initialization];
 }

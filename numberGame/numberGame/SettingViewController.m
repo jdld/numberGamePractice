@@ -7,6 +7,7 @@
 //
 
 #import "SettingViewController.h"
+#import "CourseViewController.h"
 
 @interface SettingViewController (){
     bool music;
@@ -83,5 +84,10 @@
 }
 
 - (IBAction)loginGoogleAction:(UIButton *)sender forEvent:(UIEvent *)event {
+}
+
+- (IBAction)CourseAction:(UIButton *)sender forEvent:(UIEvent *)event {
+    CourseViewController *Coures = [Utilities getStoryboardInstanceByIdentity:@"Main" byIdentity:@"Coures"];
+    [self.navigationController pushViewController:Coures animated:NO];
 }
 @end

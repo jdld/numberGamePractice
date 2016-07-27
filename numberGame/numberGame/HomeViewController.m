@@ -88,6 +88,12 @@
     _levelLab.textColor = [UIColor colorWithRed:173.f/255.f green:245.f/255.f blue:244.f/255.f alpha:1];
 }
 
+//高亮
+- (void)heightLight {
+    _clickNumLab.textColor = [UIColor greenColor];
+    _levelLab.textColor = [UIColor greenColor];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -104,10 +110,7 @@
     }
 }
 
-- (void)heightLight {
-    _clickNumLab.textColor = [UIColor greenColor];
-    _levelLab.textColor = [UIColor greenColor];
-}
+
 
 - (IBAction)preaseAction:(UIButton *)sender forEvent:(UIEvent *)event {
     //暂停计时器
