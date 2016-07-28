@@ -98,7 +98,6 @@
 
 - (void)popSpringAnimation {
     timerCount--;
-    NSLog(@"timerCount = %d",timerCount);
     UIImageView *imageView = [self viewWithTag:5];
     if (timerCount == 2) {
         POPSpringAnimation *positionAnimation2 = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerPosition];

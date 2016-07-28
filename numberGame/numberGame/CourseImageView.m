@@ -11,6 +11,7 @@
 
 @interface CourseImageView()<POPAnimationDelegate>{
     NSTimer *timer;
+    NSTimer *butTimer;
 }
 
 @property (strong, nonatomic)UIButton *btn;
@@ -58,6 +59,12 @@
     
     [self popDelegateBegin:_btn];
     [self popDelegateBegin:_lab];
+    
+    [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(addSpringAction) userInfo:nil repeats:YES];
+}
+
+- (void)addSpringAction {
+    [self createSpringAnimation:_btn];
 }
 
 - (void)beginAction {
@@ -77,6 +84,26 @@
     [view.layer pop_addAnimation:positionAnimation forKey:@"layerPositionAnimation"];
 }
 
+
+//创建弹跳动画
+- (void)createSpringAnimation:(UIView *)view {
+    POPSpringAnimation *anim = [POPSpringAnimation animation];
+    anim.property = [POPAnimatableProperty propertyWithName:kPOPViewScaleXY];
+    anim.toValue = [NSValue valueWithCGSize:CGSizeMake(0.8, 0.8)];
+    //设置弹簧的震动幅度（弹簧来回震动的摆动幅度)
+    anim.springBounciness = 8;
+    //设置弹簧的弹性系数（弹簧来回震动速度的快慢）
+    anim.springSpeed = 0.2;
+    [view pop_addAnimation:anim forKey:@"springForwardAnimation"];
+    //设置动画完成以后的回调
+    anim.completionBlock = ^(POPAnimation *ani,BOOL finished) {
+        POPBasicAnimation *basicBackwardAnimation = [POPBasicAnimation animation];
+        basicBackwardAnimation.property = [POPAnimatableProperty propertyWithName:kPOPViewScaleXY];
+        basicBackwardAnimation.duration = 0.25f;
+        basicBackwardAnimation.toValue = [NSValue valueWithCGSize:CGSizeMake(1, 1)];
+        [view pop_addAnimation:basicBackwardAnimation forKey:@"basicBackwardAnimation"];
+    };
+}
 
 // An empty implementation adversely affects performance during animation.
 //- (void)drawRect:(CGRect)rect {

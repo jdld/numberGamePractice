@@ -83,7 +83,7 @@
     }
     if (timeCount == -1) {
         [downTimer invalidate];
-        _imageView = [[CourseImageView alloc]initWithFrame:@"我想你已经明白了数学的真谛。" Btn:@"没错"];
+        _imageView = [[CourseImageView alloc]initWithFrame:@"我想你已经明白了数学的真谛。" Btn:@"完成"];
         [self.view addSubview:_imageView];
     }
 }
