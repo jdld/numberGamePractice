@@ -12,6 +12,7 @@
 
 @interface CourseViewController (){
     float HW;
+    BOOL imageFlag;
 }
 
 @property(nonatomic) CourseImageView *imageView;
@@ -25,6 +26,7 @@
     //隐藏push跳转后的返回按钮
     self.navigationItem.hidesBackButton = YES;
     HW = (UI_SCREEN_W - 120)/4;
+    imageFlag = NO;
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(clickNumber:) name:@"clickWho" object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(heightLight) name:@"heightLight" object:nil];
@@ -42,10 +44,19 @@
     [[NSNotificationCenter defaultCenter]postNotificationName:@"whoCtrl" object:nil userInfo:dic];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    imageFlag = YES;
+}
 
 
 - (void)removeImageView {
-    [_imageView removeFromSuperview];
+    if (imageFlag) {
+        imageFlag = NO;
+        [_imageView removeFromSuperview];
+        NSDictionary *dict = @{@"whoNum":@1};
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"optionHand" object:nil userInfo:dict];
+    }
 }
 
 - (void)clickNumber:(NSNotification *)note {
@@ -74,12 +85,12 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 @end

@@ -13,6 +13,8 @@
     NSTimer *downTimer;
     int timeCount; //总时长
     BOOL flag;
+    BOOL imageFlag;
+    BOOL notifiBegin;
 }
 
 @property(nonatomic) CourseImageView *imageView;
@@ -24,6 +26,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     flag = YES;
+    imageFlag = NO;
+    notifiBegin = YES;
     timeCount = 10;
     //隐藏push跳转后的返回按钮
     self.navigationItem.hidesBackButton = YES;
@@ -31,6 +35,7 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(heightLight) name:@"heightLight" object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(pushCtrl:) name:@"pushCtrl" object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(removeImageView) name:@"removeImageView" object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(timeBegin) name:@"timeBegin" object:nil];
     
     _imageView = [[CourseImageView alloc]initWithFrame:@"非常好!现在需要计时。" Btn:@"下一步"];
     [self.view addSubview:_imageView];
@@ -43,15 +48,32 @@
     [[NSNotificationCenter defaultCenter]postNotificationName:@"whoCtrl" object:nil userInfo:dic];
 }
 
-- (void)removeImageView {
-    if (flag) {
-        [_imageView removeFromSuperview];
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    imageFlag = YES;
+}
+
+- (void)timeBegin {
+    if (notifiBegin) {
+        notifiBegin = NO;
         downTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeFireMethod) userInfo:nil repeats:YES];
-        flag = NO;
-    }else {
-        [self.navigationController popToRootViewControllerAnimated:NO];
     }
-    
+  
+}
+
+- (void)removeImageView {
+    if (imageFlag) {
+        if (flag) {
+            flag = NO;
+            [_imageView removeFromSuperview];
+
+            NSDictionary *dict = @{@"whoNum":@3};
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"optionHand" object:nil userInfo:dict];
+            
+        }else {
+            [self.navigationController popToRootViewControllerAnimated:NO];
+        }
+    }
 }
 
 - (void)timeFireMethod {
@@ -93,13 +115,13 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

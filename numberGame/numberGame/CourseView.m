@@ -24,6 +24,13 @@
     CGFloat HW;
     //判断是第几个控制器
     int whoCtrl;
+    //计时器
+    NSTimer *timer;
+    int timerCount;
+    //指示手运动目标
+    CGRect handRect;
+    //倒计时是否可以开始
+    BOOL timeNow;
 }
 
 //  记录路径的数组 用于画图
@@ -50,16 +57,70 @@
 - (void)awakeFromNib
 {
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(refresh:) name:@"whoCtrl" object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(optionHand:) name:@"optionHand" object:nil];
+}
+//创建提示手
+- (void)optionHand:(NSNotification *)note {
+    timeNow = NO;
+    UIImageView *_imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"hand"]];
+    _imageView.alpha = 0.9;
+    _imageView.tag = 5;
+    [self addSubview:_imageView];
+    
+    if([note.userInfo[@"whoNum"]intValue] == 1)
+    {
+        [self setTimer:2];
+        _imageView.frame = CGRectMake(HW + 35 ,HW * 1.5 + 30 ,HW - 20,HW - 20);
+        handRect = CGRectMake(2.5 * HW+ 45,3 * HW+ 40 ,HW,HW);
+    }
+    else if([note.userInfo[@"whoNum"]intValue] == 2)
+    {
+        [self setTimer:3];
+        _imageView.frame = CGRectMake(HW + 35 ,HW * 1.5 + 30 ,HW - 20,HW - 20);
+        handRect = CGRectMake(2.5 * HW+ 45,3 * HW+ 40 ,HW - 20,HW - 20);
+    }else
+    {
+        timeNow = YES;
+        [self setTimer:3];
+        _imageView.frame = CGRectMake(HW + 35 ,HW * 1.5 + 30 ,HW - 20,HW - 20);
+        handRect = CGRectMake(2.5 * HW+ 45,HW * 2 + 20 ,HW - 20,HW - 20);
+    }
+    
+    [self setUserInteractionEnabled:NO];
+    
 }
 
-- (void)optionHand {
-    UIImageView *imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"hand"]];
-    imageView.frame = CGRectMake(HW + 20 ,HW + 20 ,HW,HW);
-    [self addSubview:imageView];
-    POPSpringAnimation *positionAnimation1 = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerPosition];
-    positionAnimation1.beginTime = 2.0f;
-    positionAnimation1.toValue = [NSValue valueWithCGRect:CGRectMake(2 * HW+ 40,2 * HW+ 40 ,HW,HW)];
-    [imageView.layer pop_addAnimation:positionAnimation1 forKey:@"layerPositionAnimation"];
+- (void)setTimer:(int)count {
+    timerCount = count;
+    
+    timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(popSpringAnimation) userInfo:nil repeats:YES];
+}
+
+- (void)popSpringAnimation {
+    timerCount--;
+    NSLog(@"timerCount = %d",timerCount);
+    UIImageView *imageView = [self viewWithTag:5];
+    if (timerCount == 2) {
+        POPSpringAnimation *positionAnimation2 = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerPosition];
+        positionAnimation2.springSpeed = 0.5;
+        positionAnimation2.dynamicsFriction = 20;
+        positionAnimation2.toValue = [NSValue valueWithCGRect:handRect];
+        [imageView.layer pop_addAnimation:positionAnimation2 forKey:@"layerPositionAnimation2"];
+        handRect = CGRectMake(1.5 *HW  + 25 , 3 * HW+ 40, HW, HW);
+    }else if(timerCount == 1){
+        POPSpringAnimation *positionAnimation1 = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerPosition];
+        positionAnimation1.springSpeed = 0.5;
+        positionAnimation1.dynamicsFriction = 20;
+        positionAnimation1.toValue = [NSValue valueWithCGRect:handRect];
+        [imageView.layer pop_addAnimation:positionAnimation1 forKey:@"layerPositionAnimation1"];
+    }else{
+        [self setUserInteractionEnabled:YES];
+        [imageView removeFromSuperview];
+        [timer invalidate];
+        if(timeNow) {
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"timeBegin" object:nil];
+        }
+    }
 }
 
 - (void)refresh:(NSNotification *)note {
