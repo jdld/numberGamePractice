@@ -1,2 +1,2 @@
 # numberGame
-高仿Numberful 纯属练习
+OC编写数字连线益智游戏
